@@ -11,7 +11,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        log.debug("from home controller");
+
         return "index.jsp";
     }
 }
