@@ -1,5 +1,8 @@
 com/likhalikhi/config/WebMvcInitialization.class
 com/likhalikhi/controller/HomeController.class
+com/likhalikhi/repository/PostRepository.class
 com/likhalikhi/config/JpaConfig.class
 com/likhalikhi/model/Customer.class
+com/likhalikhi/model/Post.class
+com/likhalikhi/service/PostService.class
 com/likhalikhi/config/DispatcherConfig.class

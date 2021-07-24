@@ -1,5 +1,8 @@
 /home/welldev003/Desktop/likhalikhi/src/main/java/com/likhalikhi/controller/HomeController.java
 /home/welldev003/Desktop/likhalikhi/src/main/java/com/likhalikhi/model/Customer.java
+/home/welldev003/Desktop/likhalikhi/src/main/java/com/likhalikhi/repository/PostRepository.java
+/home/welldev003/Desktop/likhalikhi/src/main/java/com/likhalikhi/model/Post.java
 /home/welldev003/Desktop/likhalikhi/src/main/java/com/likhalikhi/config/DispatcherConfig.java
 /home/welldev003/Desktop/likhalikhi/src/main/java/com/likhalikhi/config/JpaConfig.java
+/home/welldev003/Desktop/likhalikhi/src/main/java/com/likhalikhi/service/PostService.java
 /home/welldev003/Desktop/likhalikhi/src/main/java/com/likhalikhi/config/WebMvcInitialization.java
