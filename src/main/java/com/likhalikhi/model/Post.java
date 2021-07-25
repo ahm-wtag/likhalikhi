@@ -16,11 +16,19 @@ public class Post {
     @Column(name = "post_body")
     public String body;
 
-    public Long getPost_id() {
+    public Post() {
+    }
+
+    public Post(String title, String body) {
+        this.title = title;
+        this.body = body;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setPost_id(Long post_id) {
+    public void setId(Long post_id) {
         this.id = post_id;
     }
 
@@ -43,7 +51,7 @@ public class Post {
     @Override
     public String toString() {
         return "Post{" +
-                "post_id=" + id +
+                "id=" + id +
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
                 '}';

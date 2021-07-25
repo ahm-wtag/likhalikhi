@@ -13,8 +13,13 @@
 </head>
 <body>
     <h1>Hello There!</h1>
+
     <c:forEach items="${posts}" var="post">
-        <h2>${post}<h2>
+        <h2>${post}</h2>
     </c:forEach>
+    <form method="post" action="${pageContext.request.contextPath}/posts/new">
+        <input type="submit" value="Create new Post"/>
+    </form>
+
 </body>
 </html>

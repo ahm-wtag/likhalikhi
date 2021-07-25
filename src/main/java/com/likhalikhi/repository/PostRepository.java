@@ -15,6 +15,10 @@ public class PostRepository {
     @PersistenceContext
     EntityManager entityManager;
 
+    public void save( Post post ) {
+        entityManager.persist(post);
+    }
+
     public List<Post> findAll() {
 
         Query query = entityManager.createQuery("from Post");
@@ -22,6 +26,8 @@ public class PostRepository {
         return (List<Post>)query.getResultList();
 
     }
+
+
 
 
 }

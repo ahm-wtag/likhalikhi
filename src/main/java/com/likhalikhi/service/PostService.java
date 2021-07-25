@@ -15,7 +15,10 @@ public class PostService {
     @Autowired
     PostRepository repository;
 
+    public void save( Post post ) { repository.save(post); }
     public List<Post> findAll() {
         return repository.findAll();
     }
+
+
 }
