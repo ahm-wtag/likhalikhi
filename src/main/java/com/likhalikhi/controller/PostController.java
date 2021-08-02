@@ -36,15 +36,13 @@ public class PostController {
         return new RedirectView("/");
     }
 
-
-
     @PostMapping("/posts/new")
     public String showForm() {
         return "post/post-form.jsp";
     }
 
 
-
-
+// TODO implement update and delete feature
+// TODO find users by session and establish the many to many between customer and post
 
 }

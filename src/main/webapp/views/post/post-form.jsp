@@ -12,7 +12,7 @@
 </head>
 <body>
     <h1>Create a post!</h1>
-    <form action="/posts" method="post">
+    <form action="${pageContext.request.contextPath}/posts" method="post">
         <p>
             <label for="title">Enter post title: </label>
             <input type="text" name="title" id="title"/>

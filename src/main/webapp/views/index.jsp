@@ -13,7 +13,7 @@
 </head>
 <body>
     <h1>Hello There!</h1>
-
+    <c:if test="${not empty name}"><h1>${name}</h1></c:if>
     <c:forEach items="${posts}" var="post">
         <h2>${post}</h2>
     </c:forEach>
