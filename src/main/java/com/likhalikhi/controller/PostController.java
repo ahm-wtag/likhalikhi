@@ -56,10 +56,7 @@ public class PostController {
     }
 
 
-    @PostMapping("/new")
-    public String showForm() {
-        return "post/post-form.jsp";
-    }
+
 
 
 
