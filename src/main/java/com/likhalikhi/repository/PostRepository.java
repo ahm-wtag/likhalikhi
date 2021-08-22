@@ -3,8 +3,6 @@ package com.likhalikhi.repository;
 import com.likhalikhi.exception.ApiRequestException;
 import com.likhalikhi.model.Post;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -24,11 +22,11 @@ public class PostRepository {
             entityManager.persist(post);
             return post;
         } catch ( Exception e ) {
-            final String MESSAGE= "Failed to save in database";
-            throw new ApiRequestException(MESSAGE,e);
+            final String MESSAGE= "Failed to save in database, only title and body required in RequestBody";
+            throw new ApiRequestException(MESSAGE,HttpStatus.BAD_REQUEST,e);
         }
     }
-
+    @SuppressWarnings("unchecked")
     public List<Post> findAll() {
         try {
             Query query = entityManager.createQuery("SELECT post from Post post",Post.class);
@@ -51,7 +49,7 @@ public class PostRepository {
             throw new ApiRequestException(e.getMessage(),HttpStatus.BAD_REQUEST,e);
         }catch ( Exception e ) {
             final String MESSAGE = "Failed to get required post";
-            throw new ApiRequestException(e);
+            throw new ApiRequestException(MESSAGE,e);
         }
     }
 

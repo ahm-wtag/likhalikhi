@@ -29,7 +29,7 @@ public class ApiExceptionHandler {
         else {
             status = e.getStatus();
         }
-        logger.warn(e.getStatus());
+
         ApiError exception = new ApiError(
                 e.getMessage(),
                 status
