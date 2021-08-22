@@ -24,6 +24,7 @@ public class DispatcherConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthenticationMiddleware()).addPathPatterns("/posts/**");
+//        FIXME authentication removed
+//        registry.addInterceptor(new AuthenticationMiddleware()).addPathPatterns("/posts/**");
     }
 }

@@ -18,6 +18,8 @@
        -jsp and jstl
        -log4j
        -postgresql
+       -jackson api
+       -hibernate validator
        -new dependency
     4. build
     5. plugins
@@ -98,8 +100,11 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>5.3.7.Final</version>
+      <version>5.5.3.Final</version>
     </dependency>
+
+
+
 
     <!-- spring servlet api -->
     <dependency>
@@ -136,7 +141,29 @@
       <version>42.2.18</version>
     </dependency>
 
+<!--    jackson api -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.12.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>2.12.4</version>
+    </dependency>
+
+
+    <!--    hibernate validator -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>5.4.1.Final</version>
+    </dependency>
+
+
     <!--  new dependency -->
+
 
   </dependencies>
 
@@ -163,6 +190,14 @@
         <version>3.8.0</version>
         <configuration>
           <propertyFile>liquibase.properties</propertyFile>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>8</source>
+          <target>8</target>
         </configuration>
       </plugin>
 

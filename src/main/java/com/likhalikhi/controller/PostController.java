@@ -1,48 +1,70 @@
 package com.likhalikhi.controller;
 
+import com.likhalikhi.exception.ApiRequestException;
 import com.likhalikhi.model.Post;
 import com.likhalikhi.service.PostService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-@Controller
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.io.IOException;
+
+
+@RestController
+@RequestMapping("/api/posts")
 public class PostController {
 
+    Logger logger = Logger.getLogger(PostController.class);
+
     @Autowired
-    PostService service;
+    PostService postService;
 
     static final Logger log =  Logger.getLogger(PostController.class);
 
-    @GetMapping("/posts")
-    public List<Post> findAll() {
-        return service.findAll();
+    @GetMapping
+    public ResponseEntity<?> findAll() {
+        return new ResponseEntity<Iterable<Post>>(postService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/posts")
-    public RedirectView create(HttpServletRequest request ) {
-        Post post = new Post(request.getParameter("title"),request.getParameter("body"));
-        service.save(post);
-        return new RedirectView("/");
+
+    @PostMapping
+    public ResponseEntity<?> create( @Valid @RequestBody Post post ) {
+        Post savedPost = postService.save(post);
+        return new ResponseEntity<Post>(savedPost,HttpStatus.CREATED);
+
     }
 
-    @PostMapping("/posts/new")
+    @GetMapping("/{postId}")
+    public ResponseEntity<Post> findPost( @PathVariable("postId") Long postId ) {
+        return new ResponseEntity<Post>(postService.findById(postId),HttpStatus.OK);
+    }
+
+    @PutMapping("/{postId}")
+    public ResponseEntity<Post> update( @Valid @RequestBody Post newPost, @PathVariable("postId") Long postId  ) {
+        Post updatedPost = postService.update(newPost,postId);
+        return new ResponseEntity<Post>(updatedPost, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<Object> delete( @PathVariable("postId") Long postId ) {
+        postService.delete(postId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+    @PostMapping("/new")
     public String showForm() {
         return "post/post-form.jsp";
     }
 
 
-// TODO implement update and delete feature
+
+
 // TODO find users by session and establish the many to many between customer and post
 
 }

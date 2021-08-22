@@ -15,10 +15,12 @@ public class PostService {
     @Autowired
     PostRepository repository;
 
-    public void save( Post post ) { repository.save(post); }
+    public Post save( Post post ) { return repository.save(post); }
     public List<Post> findAll() {
         return repository.findAll();
     }
-
+    public Post findById(Long postId) { return repository.findById(postId);}
+    public Post update( Post post, Long postId ) { return repository.update(post,postId);}
+    public void delete( Long postId ) { repository.delete(postId);}
 
 }

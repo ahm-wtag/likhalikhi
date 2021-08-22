@@ -1,6 +1,8 @@
 package com.likhalikhi.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Post {
@@ -11,9 +13,11 @@ public class Post {
     public Long id;
 
     @Column(name = "post_title")
+    @Size(min = 1, message = "Title is required.")
     public String title;
 
     @Column(name = "post_body")
+    @NotNull(message = "Body cannot be null.")
     public String body;
 
     public Post() {
