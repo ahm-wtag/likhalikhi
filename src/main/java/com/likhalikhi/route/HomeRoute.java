@@ -1,4 +1,4 @@
-package com.likhalikhi.controller;
+package com.likhalikhi.route;
 
 import com.likhalikhi.model.Customer;
 import com.likhalikhi.model.Post;
@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.NoResultException;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Controller
-public class HomeController {
+public class HomeRoute {
 
-    static final Logger log = Logger.getLogger(HomeController.class);
+    static final Logger log = Logger.getLogger(HomeRoute.class);
 
     @Autowired
     PostService postService;
@@ -36,14 +36,17 @@ public class HomeController {
         ModelAndView mv = new ModelAndView("index.jsp");
         List <Post> posts = postService.findAll();
 
-        if ( !session_id.equals("null") ) {
-            UUID sessionID = UUID.fromString(session_id);
-            Long id = sessionService.findUserSession(sessionID);
-            Customer customer =  customerService.findById(id);
-            mv.addObject("name",customer.getFirstName());
+        try {
+            if (!session_id.equals("null")) {
+                UUID sessionID = UUID.fromString(session_id);
+                Long customerId = sessionService.findUserSession(sessionID);
+                Customer customer = customerService.findById(customerId);
+                mv.addObject("name", customer.getFirstName());
+            }
+        } catch ( NoResultException | IllegalArgumentException e ) {
+            log.warn("Malformed 'sc' cookie submitted");
+            return new ModelAndView("redirect:/logout");
         }
-
-
 
         mv.addObject("posts",posts);
         return mv;

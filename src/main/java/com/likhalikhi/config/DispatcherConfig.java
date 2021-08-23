@@ -1,6 +1,6 @@
 package com.likhalikhi.config;
 
-import com.likhalikhi.middleware.AuthenticationMiddleware;
+import com.likhalikhi.middleware.AuthenticationInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,13 @@ public class DispatcherConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        FIXME authentication removed
-//        registry.addInterceptor(new AuthenticationMiddleware()).addPathPatterns("/posts/**");
+
+        registry.addInterceptor(getAuthenticationInterceptor()).addPathPatterns("/posts/**");
     }
+
+    @Bean
+    public AuthenticationInterceptor getAuthenticationInterceptor() {
+        return new AuthenticationInterceptor();
+    }
+
 }

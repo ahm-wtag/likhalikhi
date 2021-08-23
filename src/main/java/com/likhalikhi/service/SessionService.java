@@ -23,4 +23,8 @@ public class SessionService {
         return  repository.findUserSession(session_id);
     }
 
+    public Session findById ( UUID session_id ) { return repository.findById(session_id);}
+
+    public void delete( UUID session_id ) { repository.delete(session_id);}
+
 }

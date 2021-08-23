@@ -12,14 +12,22 @@
     <title>Likhalikhi</title>
 </head>
 <body>
+    <div style="width: 70%;">
     <h1>Hello There!</h1>
     <c:if test="${not empty name}"><h1>${name}</h1></c:if>
+    <table>
+        <tr>
+            <th>Post title</th>
+            <th>Post body</th>
+        </tr>
     <c:forEach items="${posts}" var="post">
-        <h2>${post}</h2>
+        <tr style="padding-top: 20px">
+            <td>${post.title}</td>
+            <td style="padding-left: 20px">${post.body}</td>
+        </tr>
     </c:forEach>
-    <form method="post" action="${pageContext.request.contextPath}/posts/new">
-        <input type="submit" value="Create new Post"/>
-    </form>
-
+    </table>
+    <a href="/posts/new">Create new Post</a>
+    </div>
 </body>
 </html>

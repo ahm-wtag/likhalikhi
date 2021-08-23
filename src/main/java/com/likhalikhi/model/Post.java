@@ -14,6 +14,7 @@ public class Post {
 
     @Column(name = "post_title")
     @Size(min = 1, message = "Title is required.")
+    @NotNull
     public String title;
 
     @Column(name = "post_body")

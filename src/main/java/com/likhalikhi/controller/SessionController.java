@@ -19,46 +19,12 @@ import java.util.UUID;
 @Controller
 public class SessionController {
 
-    @Autowired
-    CustomerService customerService;
-
-    @Autowired
-    SessionService sessionService;
 
 
-    @GetMapping("/login")
-    public String login() {
-        return "authentication/login.jsp";
-    }
-
-    @GetMapping("/register")
-    public String register() {
-        return "authentication/register.jsp";
-    }
-
-    @PostMapping("/session")
-    public String create(HttpServletRequest request, RedirectAttributes attributes, HttpServletResponse response ) {
-        String handle =  request.getParameter("handle");
-        String password = request.getParameter("password");
-
-        Customer customer = customerService.findByHandle(handle);
-
-        if ( !customer.getPassword().equals(password) ) {
-            attributes.addFlashAttribute("error","Wrong credentials");
-            return "redirect:/login";
-        }
-
-        Session session = new Session();
-        session.setCustomer_id(customer.getId());
-        UUID sessionId =  sessionService.save(session);
-
-        Cookie cookie = new Cookie("sc",sessionId.toString());
-        response.addCookie(cookie);
-
-        return "redirect:/";
-    }
 
 
-//    TODO implement logout feature
+
+
+
 
 }

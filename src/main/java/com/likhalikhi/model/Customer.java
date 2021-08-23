@@ -1,6 +1,11 @@
 package com.likhalikhi.model;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "customer")
@@ -11,19 +16,28 @@ public class Customer {
     @Column(name = "customer_id")
     private Long id;
 
-    @Column( name = "customer_handle")
+    @Column( name = "customer_handle",unique = true)
+    @Size(min = 1,message = "Customer Handle is required")
+    @NotNull
     private String handle;
 
-    @Column( name = "customer_email")
+    @Column( name = "customer_email",unique = true)
+    @Email(message = "Email is invalid")
+    @NotNull
     private String email;
 
     @Column(name = "customer_password")
+    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @NotNull
     private String password;
 
     @Column( name = "customer_first_name" )
+    @Size(min = 1,message = "First name is required")
+    @NotNull
     private  String firstName;
 
     @Column( name = "customer_last_name")
+    @NotNull(message = "Last name cannot be null")
     private String lastName;
 
     public Long getId() {

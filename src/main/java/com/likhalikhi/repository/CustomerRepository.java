@@ -1,12 +1,20 @@
 package com.likhalikhi.repository;
 
+import com.likhalikhi.exception.ApiRequestException;
 import com.likhalikhi.model.Customer;
 import org.apache.log4j.Logger;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import org.hibernate.engine.spi.ExceptionConverter;
+import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.spi.SQLExceptionConverter;
+import org.postgresql.util.PSQLException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.sql.SQLException;
 
 @Repository
 public class CustomerRepository {
@@ -16,9 +24,14 @@ public class CustomerRepository {
     @PersistenceContext
     EntityManager entityManager;
 
-    public void save(Customer customer ) {
+    public Customer save(Customer customer ) {
 //        log.warn(customer.getFirstName());
-        entityManager.persist(customer);
+        try {
+            entityManager.persist(customer);
+        }catch (Exception e) {
+            throw new ApiRequestException(e.getMessage(), HttpStatus.BAD_REQUEST,e);
+        }
+        return customer;
     }
 
     public Customer findByHandle( String handle ) {
@@ -27,7 +40,7 @@ public class CustomerRepository {
         return query.getSingleResult();
     }
 
-    public Customer findByID ( Long id ) {
+    public Customer findById ( Long id ) {
         TypedQuery<Customer> query = entityManager.createQuery("select c from Customer c where c.id = :id", Customer.class);
         query.setParameter("id",id);
         return query.getSingleResult();

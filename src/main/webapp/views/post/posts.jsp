@@ -13,6 +13,7 @@
 </head>
 <body>
     <h1 style="text-align: center">All the posts</h1>
+    <c:if test="${not empty name}"><h1>${name}</h1></c:if>
     <table style="width: 100%; text-align:center;">
         <tr>
             <th>Post id</th>

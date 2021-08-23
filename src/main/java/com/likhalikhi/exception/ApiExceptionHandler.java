@@ -2,6 +2,7 @@ package com.likhalikhi.exception;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.apache.log4j.Logger;
+import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -57,6 +58,17 @@ public class ApiExceptionHandler {
                 HttpStatus.BAD_REQUEST
         );
         error.setValidationErrors(fieldErrors);
+        return new ResponseEntity<Object>(error,HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PSQLException.class)
+    public ResponseEntity<Object> handleDataBaseException( PSQLException e ) {
+
+        ApiError error = new ApiError(
+            e.getCause().getMessage(),
+            HttpStatus.BAD_REQUEST
+        );
+
         return new ResponseEntity<Object>(error,HttpStatus.BAD_REQUEST);
     }
 

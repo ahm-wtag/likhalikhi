@@ -11,7 +11,7 @@
     <title>Likhalikhi</title>
 </head>
 <body>
-    <form action="${pageContext.request.contextPath}/customer" method="post">
+    <form action="${pageContext.request.contextPath}/customers" method="post">
         <p>
             <label for="handle">Enter your handle: </label>
             <input name="handle" id="handle" type="text"/>

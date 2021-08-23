@@ -2,6 +2,7 @@ package com.likhalikhi.service;
 
 import com.likhalikhi.model.Customer;
 import com.likhalikhi.repository.CustomerRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,8 @@ public class CustomerService {
     @Autowired
     CustomerRepository repository;
 
-    public void save(Customer customer) {
-        repository.save(customer);
+    public Customer save(Customer customer) {
+        return repository.save(customer);
     }
 
     public Customer findByHandle( String handle ) {
@@ -23,7 +24,7 @@ public class CustomerService {
     }
 
     public Customer findById ( Long id ) {
-        return repository.findByID(id);
+        return repository.findById(id);
     }
 
 }
