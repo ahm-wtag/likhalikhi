@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,6 +74,18 @@ public class ApiExceptionHandler {
         return new ResponseEntity<Object>(error,HttpStatus.BAD_REQUEST);
     }
 
+
+
+    @ExceptionHandler(PersistenceException.class)
+    public ResponseEntity<Object> handleNoResultQueryException( PSQLException e ) {
+
+        ApiError error = new ApiError(
+                e.getCause().getMessage(),
+                HttpStatus.BAD_REQUEST
+        );
+
+        return new ResponseEntity<Object>(error,HttpStatus.BAD_REQUEST);
+    }
 
 
 

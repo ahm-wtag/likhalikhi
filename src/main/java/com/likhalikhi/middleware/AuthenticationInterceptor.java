@@ -1,13 +1,10 @@
 package com.likhalikhi.middleware;
 
-import com.likhalikhi.model.Customer;
 import com.likhalikhi.service.CustomerService;
 import com.likhalikhi.service.SessionService;
-import javassist.NotFoundException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -72,6 +69,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
         return UUID.fromString(uuid);
     }
+
+
+//    TODO implement security for the API
 
 
 }

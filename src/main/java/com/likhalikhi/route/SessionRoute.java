@@ -8,8 +8,10 @@ import com.likhalikhi.service.CustomerService;
 import com.likhalikhi.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -42,23 +44,27 @@ public class SessionRoute {
     }
 
     @PostMapping("/session")
-    public String create(HttpServletRequest request, RedirectAttributes attributes, HttpServletResponse response ) {
+    public String create(HttpServletRequest request, RedirectAttributes attributes, HttpServletResponse response, @ModelAttribute("error") String error, Model model ) {
         String handle =  request.getParameter("handle");
         String password = request.getParameter("password");
+        model.addAttribute(error);
+        try {
+            Customer customer = customerService.findByHandle(handle);
 
-        Customer customer = customerService.findByHandle(handle);
+            if (!customer.getPassword().equals(password)) {
+                attributes.addFlashAttribute("error", "Wrong credentials");
+                return "redirect:/login";
+            }
 
-        if ( !customer.getPassword().equals(password) ) {
-            attributes.addFlashAttribute("error","Wrong credentials");
+            Session session = new Session();
+            session.setCustomer_id(customer.getId());
+            UUID sessionId = sessionService.save(session);
+            Cookie cookie = new Cookie("sc",sessionId.toString());
+            response.addCookie(cookie);
+        }catch (Exception e ) {
+            attributes.addFlashAttribute("error","Wrong Credentials");
             return "redirect:/login";
         }
-
-        Session session = new Session();
-        session.setCustomer_id(customer.getId());
-        UUID sessionId =  sessionService.save(session);
-
-        Cookie cookie = new Cookie("sc",sessionId.toString());
-        response.addCookie(cookie);
 
         return "redirect:/";
     }
